@@ -21,10 +21,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY', default='S#perS3crEt_007')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True
 
 # Assets Management
-ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
+ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/apps/static/assets') 
 
 # load production server from .env
 ALLOWED_HOSTS        = ['localhost', 'localhost:85', '127.0.0.1',               env('SERVER', default='127.0.0.1') ]
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
-    'pollApp.apps.PollappConfig', #Enable pollApp app
+    'apps.polls.Config', #Enable polls app
     'apps.accounts' #Handles everything that has to do with accounts 
 ]
 
@@ -139,6 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(CORE_DIR,'uploads')
+MEDIA_URL ='/uploads/' 
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (

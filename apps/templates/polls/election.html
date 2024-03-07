@@ -1,0 +1,41 @@
+{%extends "polls/base.html"%}
+{%block content%}
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Election /</li>
+    </ol>
+</nav>
+<div class="row ">
+    {%for election in lastest_election_list%}
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'polls:position' election_id=election.id %}" class="text-decoration-none link-dark">
+                <div class="card bg-light" style="width: 100%; ">
+                    <img class="card-img-top" src="/static/assets/img/full.jpg" alt="">
+                    <div class="card-body">
+                        <h1 class="card-title">{{election.title}}</h1>
+                        <h5 class="card-text">{{election.description}}</h5>
+                        <div class="card-footer bg-light">
+                            <p class="card-text ">
+                                <small class="text-medium-emphasis">
+                                    Opens- {{election.start_date|date:"F d,Y"}}
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-medium-emphasis">
+                                    Closes- {{election.end_date|date:"F d,Y"}}
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-medium-emphasis">
+                                    Status- {{election.status}}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {%endfor%}
+</div>
+{%endblock content%}

@@ -1,0 +1,28 @@
+{% load static %}
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white custom-bg-color h-100" style="width: 280px; height: 100%;">
+  <div class="rounded mx-auto d-block">
+    <a href="{% url 'polls:election' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <img src="{% static 'polls/pictures/AVES LOGO_GOLD (1).png' %}" alt="" width="70" height="70">
+    </a>
+  </div>
+
+  <hr>
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="" width="40" height="40" class="rounded-circle me-2">
+      <strong>{{user.username}}</strong>
+    </a>
+
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <div class="mb-3 mt-3">
+          <a class="text-white text-decoration-none" href="/logout/">
+            <svg class="icon me-2" style="width: 20px; height:20px; color:white">
+              <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+            </svg> Logout</a>
+        </div>
+      </li>
+    
+  </div>
+</div>
