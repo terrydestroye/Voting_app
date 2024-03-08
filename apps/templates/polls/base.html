@@ -27,11 +27,11 @@
 <body class="h-100 ">
    <main class="d-flex container-fluid align-items-stretch h-100 p-0 m-0">
         <!-- sidebar -->
-        {%include "/home/playground/Desktop/django-coreui/apps/templates/polls/sidebar.html"%}
+        {%include "polls/sidebar.html"%}
         
         <div id="wrapper" class="container-fluid p-0">
             <!-- navbar -->
-            {%include "/home/playground/Desktop/django-coreui/apps/templates/polls/navbar.html"%}
+            {%include "polls/navbar.html"%}
             
             <div id="content" class="container-fluid p-4 overflow-auto">
                 {%block content%}{%endblock%}

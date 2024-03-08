@@ -18,7 +18,7 @@ def election(request):
     }
     return render(
         request, 
-        '/home/playground/Desktop/django-coreui/apps/templates/polls/election.html',
+        'polls/election.html',
         context 
     )
 
@@ -28,13 +28,12 @@ def positions(request, election_id):
     #position_list = Position.objects.order_by('-pub_date')
     candidiate_postions = Position.objects.filter(election_id=election_id)
     if len(candidiate_postions)== 0:
-        return render(request,"/home/playground/Desktop/django-coreui/apps/templates/home/page-404.html")
+        return render(request,"errors/page-404.html")
     context = {
         "position_list":candidiate_postions,
         "title": "Positions",
     }
-    return render(
-        request,'/home/playground/Desktop/django-coreui/apps/templates/polls/position.html',context)
+    return render(request,'polls/position.html',context)
 
 
 #Show and display Candidates
@@ -45,13 +44,13 @@ def candidates(request,position_id):
     candidate_list = Candidate.objects.filter(position_id=position_id)
 
     if len(candidate_list)== 0:
-        return render(request,"/home/playground/Desktop/django-coreui/apps/templates/home/page-404.html")
+        return render(request,"errors/page-404.html")
     
     context = {
         "candidate_list":candidate_list,
         "title": "Candidates",
     }
-    return render(request,'/home/playground/Desktop/django-coreui/apps/templates/polls/candidate.html',context)
+    return render(request,'polls/candidate.html',context)
 
 
 def vote_view(request, candidate_id):

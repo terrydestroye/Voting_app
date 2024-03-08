@@ -69,6 +69,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.context_processors.cfg_assets_root',
@@ -141,11 +142,12 @@ STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(CORE_DIR,'uploads')
-MEDIA_URL ='/uploads/' 
+MEDIA_URL ='/media/' 
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
+    os.path.join(CORE_DIR, 'uploads'),
 )
 
 
