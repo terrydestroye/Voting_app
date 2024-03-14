@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
     'apps.polls.Config', #Enable polls app
-    'apps.accounts' #Handles everything that has to do with accounts 
+    'apps.accounts',
+    'import_export',
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
-LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
+LOGIN_REDIRECT_URL = "polls"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
 TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
 
@@ -86,12 +88,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
     DATABASES = { 
       'default': {
-        'ENGINE'  : 'django.db.backends.mysql', 
-        'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
-        'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
-        'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
-        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
-        'PORT'    : os.getenv('DB_PORT'     , 3306),
+            'ENGINE'  : 'django.db.backends.mysql', 
+            'NAME'    : 'appseed_db',
+            'USER'    : 'appseed_db_usr',
+            'PASSWORD': 'pass',
+            'HOST'    : '127.0.0.1',
+            'PORT'    : '3306',
         }, 
     }
 else:

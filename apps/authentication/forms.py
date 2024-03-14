@@ -12,7 +12,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Student/Staff ID",
+                "placeholder": "Username",
                 "class": "form-control"
             }
         ))
