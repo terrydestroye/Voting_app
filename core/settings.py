@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
     'apps.polls.Config', #Enable polls app
-    'apps.accounts',
     'import_export',
 
 ]
@@ -156,5 +155,8 @@ STATICFILES_DIRS = (
 #############################################################
 #############################################################
 
+
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = None
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

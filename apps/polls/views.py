@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,request,JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone 
-
+import uuid
 
 
 from .models import Election,Position,Candidate,AnonymousVoter
@@ -26,6 +26,8 @@ def positions(request, election_id):
     election = get_object_or_404(Election,id=election_id)
     
     if election.end_date < timezone.now():
+        return render(request,'polls/expire.html')
+    elif election.start_date > timezone.now():
         return render(request,'polls/expire.html')
 
     if len(candidiate_postions)== 0:
@@ -53,16 +55,22 @@ def candidates(request,position_id):
 def vote_view(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
 
-    user_ip = request.META.get('REMOTE_ADDR', None)
-    browser_info = request.META.get('HTTP_USER_AGENT', None)
-    timestamp = timezone.now()
+    if 'voter_id' not in request.session:
+        # Generate a unique identifier for the voter
+        voter_id = str(uuid.uuid4())
+        request.session['voter_id'] = voter_id
+    else:
+        voter_id = request.session['voter_id']
+
+    if Candidate.objects.filter(position_id=candidate.position_id, voters__identifier=voter_id).exists():
+        return JsonResponse({'success': False, 'message': 'You have already voted for a candidate in this position'})
+    
 
     # Check if the user has already voted for this candidate
-    if not candidate.voters.filter(ip_address=user_ip).exists():
-        voter = AnonymousVoter.objects.create(timestamp=timestamp)
-        candidate.voters.add(voter)
-        candidate.vote += 1
+    if not candidate.voters.filter(identifier=voter_id).exists():
+        candidate.vote += 1 
         candidate.save()
+        candidate.voters.add(AnonymousVoter.objects.create(identifier=voter_id))
 
         return JsonResponse({'success':True,'message':'You have voted successfully'})
     else:

@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.utils import timezone
 
 from django.contrib.auth.models import User
@@ -22,15 +23,13 @@ class Position(models.Model):
     pub_date = models.DateTimeField('date published',default = timezone.now)    
     def __str__(self):
         return self.title
-
-class AnonymousVoter(models.Model):
-    timestamp = models.DateTimeField(default=timezone.now)  
     
-    def __str__(self):
-        return f"Vote from {self.ip_address} at {self.timestamp}"
+class AnonymousVoter(models.Model):
+   
+ identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     
 class Candidate(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    candidate = models.ForeignKey(User, on_delete=models.CASCADE)
     position_id = models.ForeignKey(Position,on_delete=models.CASCADE)
     election_id = models.ForeignKey(Election,on_delete=models.CASCADE)
     voters = models.ManyToManyField(AnonymousVoter, related_name='voters',blank=True)
@@ -40,4 +39,4 @@ class Candidate(models.Model):
     vote = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.student.username
+        return self.candidate.username
